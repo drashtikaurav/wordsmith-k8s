@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deployment
+  labels:
+    app: db
+  namespace: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: db
+        image: drashti08/wordsmith-db:v2
+        ports:
+        - containerPort: 5432
+          name: db-port
+        env:
+        - name: db-pass
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: PGPASSWORD

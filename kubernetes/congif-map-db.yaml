@@ -1,0 +1,13 @@
+#create same configmap for namespace db
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+  namespace: words
+data:
+  PGHOST: "db.db.svc.cluster.local"
+  PGPORT: "5432"
+  PGUSER: "postgress"
+  PGPASSWORD: "mydb@12345"
+  debug_mode: "1"
+  log_level: "verbose"

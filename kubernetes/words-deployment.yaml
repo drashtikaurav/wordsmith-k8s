@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: words-deployment
+  labels:
+    app: words
+  namespace: words
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: words
+  template:
+    metadata:
+      labels:
+        app: words
+    spec:
+      containers:
+      - name: words
+        image: drashti08/wordsmith-words:v3
+        ports:
+        - containerPort: 8080
+          name: words-port
+        envFrom:
+        - configMapRef:
+            name: db-config
